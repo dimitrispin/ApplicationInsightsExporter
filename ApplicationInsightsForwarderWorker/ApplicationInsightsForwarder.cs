@@ -24,11 +24,12 @@ namespace ApplicationInsightsForwarderWorker
             _client = httpClientFactory.CreateClient("ApplicationInsightsExporter");
 
             _otlpEndpoint = Environment.GetEnvironmentVariable("OTLP_ENDPOINT");
-            if (!String.IsNullOrEmpty(_otlpEndpoint) && _otlpEndpoint.Contains("v1/traces"))
+            /*if (!String.IsNullOrEmpty(_otlpEndpoint) && _otlpEndpoint.Contains("v1/traces"))
                 if (_otlpEndpoint.EndsWith("/"))
                     _otlpEndpoint = _otlpEndpoint += "v1/traces";
                 else
                     _otlpEndpoint = _otlpEndpoint += "/v1/traces";
+                    */
         }
 
         [Function("ForwardAI")]
