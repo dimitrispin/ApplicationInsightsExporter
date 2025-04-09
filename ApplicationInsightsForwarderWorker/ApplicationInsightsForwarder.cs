@@ -36,7 +36,7 @@ namespace ApplicationInsightsForwarderWorker
         public async Task Run([EventHubTrigger("appinsights", Connection = "EHConnection")] EventData[] events)
         {
             var exceptions = new List<Exception>();
-
+ 
             foreach (EventData eventData in events)
             {
                 try
@@ -51,6 +51,8 @@ namespace ApplicationInsightsForwarderWorker
 
                     var content = new ApplicationInsights2OTLP.ExportRequestContent(exportTraceServiceRequest);
 
+                    _logger.LogError("OTLP Endpoint: " + _otlpEndpoint);
+                    _logger.LogError("Content: " + content);
                     var res = await _client.PostAsync(_otlpEndpoint, content);
                     if (!res.IsSuccessStatusCode)
                     {
